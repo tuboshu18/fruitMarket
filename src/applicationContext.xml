@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 配置bean -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+			<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+	</bean>
+	
+	
+	
+	<!-- user，用户-->
+	<bean id="userAction" class="njci.software.market.web.UserAction" scope="prototype">
+			<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="userDao" class="njci.software.market.dao.Impl.UserDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userService" class="njci.software.market.service.Impl.UserServiceImpl">
+			<property name="userDao" ref="userDao"></property>
+	</bean>
+	<!-- admin，管理员-->
+	<bean id="adminAction" class="njci.software.market.web.AdminAction" scope="prototype">
+			<property name="adminService" ref="adminService"></property>
+	</bean>
+	<bean id="adminDao" class="njci.software.market.dao.Impl.AdminDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="adminService" class="njci.software.market.service.Impl.AdminServiceImpl">
+			<property name="adminDao" ref="adminDao"></property>
+	</bean>
+	<!-- cars，购物车-->
+	<bean id="carsAction" class="njci.software.market.web.CarsAction" scope="prototype">
+			<property name="carsService" ref="carsService"></property>
+	</bean>
+	<bean id="carsDao" class="njci.software.market.dao.Impl.CarsDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="carsService" class="njci.software.market.service.Impl.CarsServiceImpl">
+			<property name="carsDao" ref="carsDao"></property>
+	</bean>
+	<!-- goods，商品-->
+	<bean id="goodsAction" class="njci.software.market.web.GoodsAction" scope="prototype">
+			<property name="goodsService" ref="goodsService"></property>
+	</bean>
+	<bean id="goodsDao" class="njci.software.market.dao.Impl.GoodsDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="goodsService" class="njci.software.market.service.Impl.GoodsServiceImpl">
+			<property name="goodsDao" ref="goodsDao"></property>
+	</bean>
+	<!-- invite，邀请码-->
+	<bean id="inviteAction" class="njci.software.market.web.InviteAction" scope="prototype">
+			<property name="inviteService" ref="inviteService"></property>
+	</bean>
+	<bean id="inviteDao" class="njci.software.market.dao.Impl.InviteDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="inviteService" class="njci.software.market.service.Impl.InviteServiceImpl">
+			<property name="inviteDao" ref="inviteDao"></property>
+	</bean>
+	<!-- orders，订单-->
+	<bean id="ordersAction" class="njci.software.market.web.OrdersAction" scope="prototype">
+			<property name="ordersService" ref="ordersService"></property>
+	</bean>
+	<bean id="ordersDao" class="njci.software.market.dao.Impl.OrdersDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="ordersService" class="njci.software.market.service.Impl.OrdersServiceImpl">
+			<property name="ordersDao" ref="ordersDao"></property>
+	</bean>
+	<!-- recommend，推荐-->
+	<bean id="recommendAction" class="njci.software.market.web.RecommendAction" scope="prototype">
+			<property name="recommendService" ref="recommendService"></property>
+	</bean>
+	<bean id="recommendDao" class="njci.software.market.dao.Impl.RecommendDaoImpl">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="recommendService" class="njci.software.market.service.Impl.RecommendServiceImpl">
+			<property name="recommendDao" ref="recommendDao"></property>
+	</bean>
+	<!-- 图片上传 -->
+	<bean id="uploadAction" class="njci.software.market.web.uploadAction" scope="prototype">
+	</bean>
+	
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+</beans>

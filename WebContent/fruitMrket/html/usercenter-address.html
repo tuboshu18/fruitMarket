@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="../res/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="../res/layui/css/layui.css">
+  <script type="text/javascript" src="../res/layui/layui.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <i class="layui-icon layui-icon-home"></i>
+        <a href="commodity.html">首页</a>
+      </p>
+      <div class="sn-quick-menu">
+        <div class="login"><a href="login.html" id="one">登陆</a></div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="header">
+    <div class="headerLayout w1200">
+      <div class="headerCon">
+        <h1 class="mallLogo">
+          <a href="#" title="水果商城">
+            <img src="../res/static/img/logo.png">
+          </a>
+        </h1>
+        
+      </div>
+    </div>
+  </div>
+  <div class="content content-nav-base buytoday-content">
+	  	<div class="main-nav">
+	      <div class="inner-cont0">
+	        <div class="inner-cont1 w1200">
+	          <div class="inner-cont2">
+	            <a href="usercenter.html">我的订单</a>
+	            <a href="usercenter-address.html" class="active">地址管理</a>
+	            <a href="usercenter-pwd.html">账户安全</a>
+	            
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+  	<div class="container-fluid">
+			<div class="row">
+				
+				<!-- 控制内容 -->
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+					
+					<div class="col-md-12">
+						<hr />
+						<h2>
+							<a>来修改你的收货地址吧(๑•̀ㅂ•́)و✧</a>
+						</h2>
+						<hr />
+						<div class="col-sm-offset-2 col-md-offest-2" style="margin-left:0%;">
+						<div id="addrData">
+							
+							</div>
+							
+						</div>
+					</div>
+	
+					
+					
+					</div>
+				</div>
+		</div>
+  </div>
+  <div class="footer">
+    <div class="ng-promise-box">
+      <div class="ng-promise w1200">
+        <p class="text">
+          <a class="icon1" href="javascript:;">7天无理由退换货</a>
+          <a class="icon2" href="javascript:;">满99元全场免邮</a>
+          <a class="icon3" style="margin-right: 0" href="javascript:;">100%品质保证</a>
+        </p>
+      </div>
+    </div>
+    <div class="mod_help w1200">                                     
+      <p>
+        <a href="about.html">关于我们</a>
+        <span>|</span>
+        <a href="javascript:;">帮助中心</a>
+        <span>|</span>
+        <a href="javascript:;">售后服务</a>
+        <span>|</span>
+        <a href="information.html">水果资讯</a>
+        <span>|</span>
+        <a href="javascript:;">关于货源</a>
+      </p>
+      <p class="coty">水果商城版权所有 &copy; 2012-2020</p>
+    </div>
+  </div>
+  
+	<div class="layui-form" id="addrForm" style="display:none;padding-top:10px;">
+		<form id="addrFormData">
+			<input type="hidden" name="addrId" id="addrId" />
+			<div class="layui-form-item">
+				<label class="layui-form-label">收货人名称</label>
+				<div class="layui-input-inline">
+					 <input type="text" name="addrNickname" id="addrNickName" required lay-verify="required" placeholder="请输入收货人名称" value="" class="layui-input" />
+				</div>			 
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">收货人电话</label>
+				<div class="layui-input-inline">
+					 <input type="text" name="addrPhone" id="addrPhone" required lay-verify="required" placeholder="请输入收货电话" value="" class="layui-input" />
+				</div>			 
+			</div>
+		    <div class="layui-form-item">
+		    	<label class="layui-form-label">所在地区</label>
+			    <div class="layui-input-inline">
+					 <input type="text" name="addrPhone" id="locations" required lay-verify="required" placeholder="请输入所在地区" value="" class="layui-input" />
+					</div>
+			    <div class="layui-form-mid layui-word-aux">例:江苏省南京市</div>
+			    
+		    </div>
+		     <div class="layui-form-item">
+				<label class="layui-form-label">详细地址</label>
+				<div class="layui-input-inline">
+					 <input style="width:590px;" type="text" name="addrDetail" id="addrDetail" placeholder="请输入详细地址" required lay-verify="required" value="" class="layui-input" />
+				</div>			 
+			 </div>
+			<button style="display:none;" type="reset" id="resetBtn">重置</button>
+		</form>	
+	</div>
+  
+  
+  
+  
+  <script type="text/javascript">
+		var layer;
+		var element;
+		var form;
+		var rate;
+		var upload;
+		var success=0;
+		var fail=0;
+		var imgurls="";
+		layui.use([ 'layer', 'element','form','rate','upload' ], function() {
+			layer = layui.layer;
+			element = layui.element;
+			form=layui.form;
+			rate=layui.rate;
+			upload=layui.upload;
+			form.render();
+			element.render();
+			var $ = layui.$;
+			var localTest = layui.data('userInfo');
+						
+			
+			$.ajax({
+				type:"post",
+				url:"http://localhost:8080/FruitMarket/user_getAddress.action?user.mid="+localTest.uid,
+				success:function(data){
+					if(data.code===200){
+						str="<table class='layui-table'><colgroup><col width='100'><col width='150'>"+
+						"<col width='300'><col width='340'><col></colgroup><thead><tr><th>收货人</th>"+
+						"<th>电话</th><th>所在地区</th><th>详细地址</th><th>操作</th></tr></thead><tbody>";
+						
+							str=str+"<tr><td>"+data.data.name+"</td><td>"+data.data.tel+"</td>"+
+							"<td>"+data.data.locations+"</td>"+
+							"<td>"+data.data.address+"</td><td>"+
+							"<button onclick='modifyAddress("+localTest.uid+")' class='layui-btn layui-btn-xs layui-btn-warm'>编辑</button>"+
+							"</td></tr>";
+						
+						str=str+"</tbody></table>";
+					}else{
+						str="<h3>暂无收货地址！</h3>";
+					}
+					$("#addrData").html(str);
+				}
+			});
+			
+			
+			
+		});
+		
+		window.onload = function(){
+			var $ = layui.$
+			console.log("11111111111111");
+			var localTest = layui.data('userInfo');
+			if(localTest.uid){
+				
+				var $ = layui.$;
+				$('#one').attr('href','javascript:logout();');
+				$('#one').text('注销');
+				
+			}
+			
+		}
+		function logout(){
+			layui.data('userInfo', {
+											  key: 'uid'
+											  ,remove: true
+			});
+			window.location.href="login.html";
+		}
+		
+		function modifyAddress(id){
+			var $ = layui.$;
+			$.ajax({
+				type:"post",
+				url:"http://localhost:8080/FruitMarket/user_getAddress.action?user.mid="+id,
+				success:function(data){
+					layer.open({
+		                type: 1,
+		                title: '修改地址',
+		                shade: 0.4,  //阴影度
+		                fix: false,
+		                shadeClose: true,
+		                maxmin: false,
+		                area: ['800px;', '500px;'],    //窗体大小（宽,高）
+		                content: $('#addrForm'),
+		                btn:['修改','取消'],
+		                success: function (layero, index) {
+		                	$("#addrId").val(id);
+		                	$("#addrNickName").val(data.data.name);
+		                	$("#addrPhone").val(data.data.tel);
+		                	$("#locations").val(data.data.locations);
+		                	$("#addrDetail").val(data.data.address);
+		                    layero.addClass('layui-form');//添加form标识
+		                    layero.find('.layui-layer-btn0').attr('lay-filter', 'fromContent').attr('lay-submit', '');//将按钮弄成能提交的
+		                    form.render(); 
+		                },
+		                yes: function(index, layero){
+		                	var addrId = document.getElementById("addrId").value;
+											var addrNickName = document.getElementById("addrNickName").value;
+		                	var addrPhone = document.getElementById("addrPhone").value;
+											var locations = document.getElementById("locations").value;
+											var addrDetail = document.getElementById("addrDetail").value;
+											var address = addrNickName+","+addrPhone+","+locations+","+addrDetail;
+											
+											$.ajax({
+												type:"post",
+												url:"http://localhost:8080/FruitMarket/user_setAddress.action?user.mid="+addrId+"&user.address="+address,
+												
+												success:function(data){
+													if(data.code===200){
+														parent.layer.msg('修改地址成功！', { icon: 1, shade: 0.4, time: 1000 });
+		                        
+													}else{
+														parent.layer.msg('修改地址失败！,请重试！', { icon: 5, shade: 0.4, time: 1000 });
+													}
+													layer.close(index);
+		                      $("#resetBtn").click();
+		                      //parent.window.location.href="usercenter-address.html";
+												}
+											});
+											
+										
+		                }
+		            });
+				}
+			});
+		}
+		
+		
+	
+	</script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</body>
+</html>

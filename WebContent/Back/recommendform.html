@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>        
+
+ 
+<form class="layui-form" action="">
+  <div class="layui-form-item">
+    <label class="layui-form-label">标题</label>
+    <div class="layui-input-block">
+      <input id="biaoti" type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">内容</label>
+    <div class="layui-input-block">
+      <input id="neirong" type="text" name="title" required  lay-verify="required" placeholder="请输入内容" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+	        <label class="layui-form-label">配图</label>
+	        <div class="layui-input-block">
+	            <input type="file" id="file" name="file" class="text" onchange="doupload(this)">
+	            
+	            <input type="hidden"  id="weixin2" name="place" value=""  class="layui-input">
+	            <div class="layui-upload-list">
+	                <img class="layui-upload-img" width="100px" height="80px" id="demo1"/>
+	                <p id="demoText1"></p>
+	            </div>
+	        </div>
+	</div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+  
+          
+<script src="layui/layui.js" charset="utf-8"></script>
+<script>
+layui.use(['form', 'layedit', 'laydate','upload'], function(){
+	var form = layui.form
+  ,layer = layui.layer
+  ,layedit = layui.layedit
+  ,laydate = layui.laydate;
+	var $ = layui.$;
+	var upload = layui.upload;
+	function getUrlParam(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		if (r != null) return unescape(r[2]); return null; //返回参数值
+	}
+	//修改的时候进行数据填充
+	var id = getUrlParam('mid');
+	console.log(id);
+	$.ajax({
+		type:"get",
+		
+		url:"http://localhost:8080/FruitMarket/recommend_getByid.action?recommend.mid="+id,
+		success: function(data){
+			
+			document.getElementById("biaoti").value= data.msg.title;
+			document.getElementById("neirong").value= data.msg.content;
+			document.getElementById("weixin2").value= data.msg.img;
+			document.getElementById("demo1").src= "F:\codeLibary\JavaEE\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\FruitMarket\images\1555209106458.jpg";
+		}
+	});
+	//图片上传
+	var files;
+
+	
+	
+	
+	
+	
+	form.on('submit(formDemo)', function (data) {
+	      var field = data.field.city; //获取提交的字段
+	      $.ajax({
+	          type: "get", //请求方式 post
+	          //dataType: 'json', //数据类型 json
+	          //contentType: "application/json; charset=utf-8",
+	          url: "http://localhost:8080/FruitMarket/orders_upd.action?orders.mid="+id+"&orders.num="+field, // 请求地址
+	          //data: JSON.stringify(field), //请求附带参数
+	          success: function (data) {
+	        	 
+	          }
+	      });
+	      var index = parent.layer.getFrameIndex(window.name);
+	      parent.layer.close(index);
+	  });
+	
+	
+});
+</script>
+</body>
+</html>
+<script>
+function doupload(obj){
+	var files = obj.files ;
+	var $ = layui.$;
+	var formData = new FormData();
+	formData.append('upload',files[0]);
+	$.ajax({
+		url: 'http://localhost:8080/FruitMarket/upload_upImg.action',
+		type: 'POST',
+		cache: false, //上传文件不需要缓存
+		data: formData,
+		processData: false, // 告诉jQuery不要去处理发送的数据
+		contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+		success: function (data) {
+			console.log(data.data);
+			document.getElementById("weixin2").value= data.data;
+			document.getElementById("demo1").value= data.data;
+		}
+	}) 	
+	
+}
+</script>

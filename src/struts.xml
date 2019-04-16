@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.multipart.saveDir" value="/images"/>
+	<constant name="struts.action.extension" value="action" />
+	<package name="user" extends="json-default" namespace="/">
+		<action name="user_*" class="userAction" method="{1}">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="admin" extends="json-default" namespace="/">
+		<action name="admin_*" class="adminAction" method="{1}">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="cars" extends="json-default" namespace="/">
+		<action name="cars_*" class="carsAction" method="{1}">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="goods" extends="json-default" namespace="/">
+		<action name="goods_*" class="goodsAction" method="{1}">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="invite" extends="json-default" namespace="/">
+		<action name="invite_*" class="inviteAction" method="{1}">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="orders" extends="json-default" namespace="/">
+		<action name="orders_*" class="ordersAction" method="{1}">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="recommend" extends="json-default" namespace="/">
+		<action name="recommend_*" class="recommendAction" method="{1}">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+	<package name="upload" extends="json-default" namespace="/">
+		<action name="upload_*" class="uploadAction" method="{1}">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+</struts>

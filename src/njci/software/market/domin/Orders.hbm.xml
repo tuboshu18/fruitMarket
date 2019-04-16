@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="njci.software.market.domin.Orders" table="orders">
+		<id name="mid" column="mid">
+			<generator class="native"></generator>
+		</id>
+		<property name="uid" column="uid"></property>
+		<property name="pid" column="pid"></property>
+		<property name="dates" column="dates"></property>
+		<property name="status" column="status"></property>
+		<property name="price" column="price"></property>
+		<property name="name" column="name"></property>
+		<property name="address" column="address"></property>
+		<property name="goodsname" column="goodsname"></property>
+		<property name="num" column="num"></property>
+		<property name="total" column="total"></property>
+	</class>
+</hibernate-mapping>  

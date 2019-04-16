@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="../res/static/css/main.css">
+  <link rel="stylesheet" type="text/css" href="../res/layui/css/layui.css">
+  <script type="text/javascript" src="../res/layui/layui.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <i class="layui-icon layui-icon-home"></i>
+        <a href="commodity.html">首页</a>
+      </p>
+      <div class="sn-quick-menu">
+        <div class="login"><a href="login.html">登陆</a></div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="header">
+    <div class="headerLayout w1200">
+      <div class="headerCon">
+        <h1 class="mallLogo">
+          <a href="#" title="水果商城">
+            <img src="../res/static/img/logo.png">
+          </a>
+        </h1>
+        <div class="mallSearch">
+          <form action="" class="layui-form" novalidate>
+            <input type="text" name="title" required  lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入需要的商品">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">
+                <i class="layui-icon layui-icon-search"></i>
+            </button>
+            <input type="hidden" name="" value="">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content content-nav-base  login-content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+            <a href="commodity.html" class="active">所有商品</a>
+            <a href="buytoday.html">今日团购</a>
+            <a href="information.html">水果资讯</a>
+            <a href="about.html">关于我们</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="login-bg">
+      <div class="login-cont w1200">
+        <div class="form-box">
+          <form class="layui-form" action="">
+            <legend>注册</legend>
+            <div class="layui-form-item">
+              <div class="layui-inline iphone">
+                <div class="layui-input-inline">
+                  <i class="layui-icon layui-icon-username iphone-icon"></i>
+                  <input type="tel" name="phone" id="username" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-inline iphone">
+                <div class="layui-input-inline">
+                  <i class="layui-icon layui-icon-password iphone-icon"></i>
+                  <input type="password" name="phone" id="pwd1" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              <div class="layui-inline iphone">
+                <div class="layui-input-inline">
+                  <i class="layui-icon layui-icon-password iphone-icon"></i>
+                  <input type="password" name="phone" id="pwd2" lay-verify="required" placeholder="请再输入一次" autocomplete="off" class="layui-input">
+                </div>
+              </div>
+              
+            </div>
+            <div class="layui-form-item login-btn">
+              <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="registerSubmit" onclick="return false">注册</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="ng-promise-box">
+      <div class="ng-promise w1200">
+        <p class="text">
+          <a class="icon1" href="javascript:;">7天无理由退换货</a>
+          <a class="icon2" href="javascript:;">满99元全场免邮</a>
+          <a class="icon3" style="margin-right: 0" href="javascript:;">100%品质保证</a>
+        </p>
+      </div>
+    </div>
+    <div class="mod_help w1200">                                     
+      <p>
+        <a href="about.html">关于我们</a>
+        <span>|</span>
+        <a href="javascript:;">帮助中心</a>
+        <span>|</span>
+        <a href="javascript:;">售后服务</a>
+        <span>|</span>
+        <a href="information.html">水果资讯</a>
+        <span>|</span>
+        <a href="javascript:;">关于货源</a>
+      </p>
+      <p class="coty">水果商城版权所有 &copy; 2012-2020</p>
+    </div>
+  </div>
+  <script type="text/javascript">
+   layui.config({
+      base: '../res/static/js/util' //你存放新模块的目录，注意，不是layui的模块目录
+    }).use(['jquery','form'],function(){
+          var $ = layui.$,form = layui.form;
+
+
+        form.on('submit(registerSubmit)',function(){
+					var username = document.getElementById("username").value;
+					var pwd1 = document.getElementById("pwd1").value;
+					var pwd2 = document.getElementById("pwd2").value;
+					if(pwd1!==pwd2){
+						layer.msg("两次输入的密码不一致",{icon:5,anim:6,time:3000});
+					}else{
+						$.ajax({
+							type:"post",
+							url:"http://localhost:8080/FruitMarket/user_register.action?user.username="+username+"&user.pwd="+pwd1,
+							
+							success:function(data){
+								if(data.code===200){
+									layer.msg("注册成功！请至个人中心修改收货地址",{icon:1,anim:2,time:2000},function(){
+										
+										window.location.href="buytoday.html";
+										layui.data('userInfo', {
+											  key: 'uid'
+											  ,value: data.uid
+											});
+										var localTest = layui.data('userInfo');
+										console.log(localTest.uid);
+									});
+								}else{
+									layer.msg("注册失败！我想不出来你为什么会失败！",{icon:5,anim:6,time:3000});
+								}
+							}
+						});
+					}
+						
+			});
+    })
+  </script>
+
+</body>
+</html>
